@@ -20,14 +20,14 @@ const createRefreshToken = (id, isAdmin) => {
 
 //registration
 
-const useReg = async (req, res, next) => {
+const userReg = async (req, res, next) => {
   //validate req data
   const { value, error } = joischema.joiUserSchema.validate(req.body);
 
   if (error) {
     return next(new customError(error.details[0].message, 400));
   }
-  const { name, email, number, password, confirmpassword } = value;
+  const { name, email, number, password, confirmedpassword } = value;
 
   //check if user already exist
 
@@ -38,7 +38,7 @@ const useReg = async (req, res, next) => {
   }
   //check password match
 
-  if (password !== confirmpassword) {
+  if (password !== confirmedpassword) {
     return next(new customError("passwords do not match", 400));
   }
 
@@ -46,14 +46,14 @@ const useReg = async (req, res, next) => {
 
   const salt = await bcrypt.genSalt(8);
   const hashedPassword = await bcrypt.hash(password, salt);
-  const newUSer = new user({
+  const newUser = new user({
     name,
     email,
     number,
     password: hashedPassword,
   });
 
-  await newUSer.save();
+  await newUser.save();
   res.status(200).json({
     status: "success",
     message: "user registered successfully",
