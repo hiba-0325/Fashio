@@ -32,3 +32,10 @@ const gotAllProduct = async (req, res) => {
     })
   }
 };
+
+
+module.exports = {
+  gotAllProduct,
+  getProductType,
+  getProductById,
+};
