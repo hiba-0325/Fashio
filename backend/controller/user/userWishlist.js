@@ -1,4 +1,5 @@
-const wishlistSchema = require("../../modles/schema/wishlistSchema");
+const wishlistSchema = require("../../models/schema/wishlistSchema");
+
 const customError = require("../../utils/customError");
 
 //1.to get user wishlist

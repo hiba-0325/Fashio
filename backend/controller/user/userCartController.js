@@ -44,39 +44,38 @@ const updateUserCart = async (req, res, next) => {
       (product) => product.productId.toString() === productId.toString()
     );
 
-    if (productIndex >-1){
-        //if product already exists in cart, update qty
-        cart.products[productIndex].quantity += quantity;
-    }else{
-        //if product does not exist in cart, add new product
-        cart.products.push({productId, quantity})
+    if (productIndex > -1) {
+      //if product already exists in cart, update qty
+      cart.products[productIndex].quantity += quantity;
+    } else {
+      //if product does not exist in cart, add new product
+      cart.products.push({ productId, quantity });
     }
   }
   const cartSaved = await cart.save();
   await cartSaved.populate({
     path: "products.productId",
     select: "name price image",
-  })
-  res.status(200).json({message:"cart updated"})
-    
+  });
+  res.status(200).json({ message: "product added to cart" });
 };
 
 //remove product from cart
 
-const removeFromCart= async (req,res)=>{
-    //findingcart by user id
-    
+const removeFromCart = async (req, res) => {
+  //findingcart by user id
 
+  const cart = await cartSchema.findOneAndUpdate(
+    { userId: req.user.id, "products.productId": req.body.productId },
 
-    const cart = await cartSchema.findOneAndUpdate({userId:req.user.id,"products.productId":req.params.productId},
-        {$pull:{products:{productId:req.body.productId}}},
-        {new:true}
-    );
-    if(cart){
-        res.status(200).json({message:"product removed from cart"})
-    }else{
-        res.status(404).json({message:"product not found in cart"})
-    }
-}
+    { $pull: { products: { productId: req.body.productId } } },
+    { new: true }
+  );
+  if (cart) {
+    res.status(200).json({ message: "product removed from cart" });
+  } else {
+    res.status(404).json({ message: "product not found in cart" });
+  }
+};
 
-module.exports = {getUserCart,updateUserCart,removeFromCart};
+module.exports = { getUserCart, updateUserCart, removeFromCart };

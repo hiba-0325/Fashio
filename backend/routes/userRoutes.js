@@ -1,18 +1,18 @@
 const express = require("express");
-const tryCatch = require("../middleware/trycatch");
+const tryCatch = require("../utils/tryCatch");
 const userProductController = require("../controller/user/userProductController");
 const userCartController = require("../controller/user/userCartController");
-const userWishlistController = require("../controller/user/userWishlist");
+const userWishlist = require("../controller/user/userWishlist");
 const userOrderController = require("../controller/user/userOrderController");
-const { verifyToken } = require("../middleware/authentication");
+const { verifyToken } = require("../middleware/auth");
 const routes = express.Router();
 
 routes
   //user product controller
 
-  .get("/product", tryCatch(userProductController.getAllProducts))
-  .get("/product/:id", tryCatch(userProductController.getProductsById))
-  .get("/product/:type", tryCatch(userProductController.getProductsByType))
+  .get("/product", tryCatch(userProductController.getAllProduct))
+  .get("/product/:id", tryCatch(userProductController.getProductById))
+  .get("/product/:type", tryCatch(userProductController.getProductType))
 
   //cart ccontroller
 
@@ -21,45 +21,29 @@ routes
   .delete("/cart", verifyToken, tryCatch(userCartController.removeFromCart))
 
   //wishlist controller
-  .get(
-    "/wishlist",
-    verifyToken,
-    tryCatch(userWishlistController.getUserWishlist)
-  )
-  .post(
-    "/wishlist",
-    verifyToken,
-    tryCatch(userWishlistController.addToWishlist)
-  )
-  .delete(
-    "/wishlist",
-    verifyToken,
-    tryCatch(userWishlistController.removeFromWishlist)
-  )
+  .get("/wishlist", verifyToken, tryCatch(userWishlist.getUserWishlist))
+  .post("/wishlist", verifyToken, tryCatch(userWishlist.addToWishlist))
+  .delete("/wishlist", verifyToken, tryCatch(userWishlist.removeFromWishlist))
 
   //orderController
 
-  .get("/order",
-       verifyToken,
-       tryCatch(userOrderController.getAllOrders)
-  )
-  .get("/order/:orderId",
+  .get("/order", verifyToken, tryCatch(userOrderController.getAllOrders))
+  .get(
+    "/order/:orderId",
     verifyToken,
     tryCatch(userOrderController.getOneOrder)
   )
-  .post("/order/cod",
-    verifyToken,
-    tryCatch(userOrderController.orderCOD)
-  )
+  .post("/order/cod", verifyToken, tryCatch(userOrderController.orderCOD))
 
-  .post("/order/stripe/checkout",
+  .post(
+    "/order/stripe/checkout",
     verifyToken,
     tryCatch(userOrderController.orderWithStripe)
   )
-  .patch("/order/stripe/success/:sessionId",
+  .patch(
+    "/order/stripe/success/:sessionId",
     verifyToken,
     tryCatch(userOrderController.stripeSuccess)
+  );
 
-  )
-
-  
+module.exports = routes;
