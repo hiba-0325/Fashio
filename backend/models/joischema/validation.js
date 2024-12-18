@@ -26,9 +26,15 @@ const joiUserLogin = joi.object({
   password: joi.string().required(),
 });
 
-// const joiproductSchema=joi.object({
-//     name:joi.string().required(),
-//     type:joi.string()
-// })
+const joiproductSchema = joi.object({
+  name: joi.string().required(),
+  type: joi.string().required(),
+  price: joi.number().required(),
+  qty: joi.number().required(),
+  description: joi.string().required(),
+  rating: joi.number().min(1).max(5),
+  reviews: joi.number().optional(),
+  isDeleted: joi.boolean().default(false).optional(),
+});
 
-module.exports = { joiUserSchema, joiUserLogin };
+module.exports = { joiUserSchema, joiUserLogin, joiproductSchema };

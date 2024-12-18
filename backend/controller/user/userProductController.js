@@ -1,4 +1,6 @@
 const product = require("../../models/schema/productSchema");
+
+//get all products
 const getAllProduct = async (req, res) => {
   const allProduct = await product.find();
 

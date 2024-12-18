@@ -1,4 +1,4 @@
-const User = require("../../modles/schema/userSchema");
+const User = require("../../models/schema/userSchema");
 const customError = require("../../utils/customError");
 //Get all users
 const getAllUsers = async (req, res, next) => {

@@ -8,7 +8,7 @@ const verifyToken = (req, res, next) => {
       return next(new customError("Authentication token missing", 401)); // Updated error message and status code
     }
 
-    const token = authHeader.split(" ")[1]; // Extract token from "Bearer "
+    const token = authHeader.split(" ")[1]; // Extract token from "Bearer"
     if (!token) {
       return next(new customError("Authentication token not provided", 403));
     }

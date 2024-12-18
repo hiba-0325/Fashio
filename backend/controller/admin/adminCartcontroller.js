@@ -1,4 +1,4 @@
-const Cart = require("../../modles/schema/cartSchema");
+const Cart = require("../../models/schema/cartSchema");
 const customError = require("../../utils/customError");
 
 //all carts

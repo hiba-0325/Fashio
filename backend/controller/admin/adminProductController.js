@@ -1,10 +1,10 @@
-const product = require("../../modles/schema/productSchema");
+const product = require("../../models/schema/productSchema");
 const customError = require("../../utils/customError");
-const joischema = require("../../modles/joischema/validation");
+const joischema = require("../../models/joischema/validation");
 
 // create product
 const createProduct = async (req, res, next) => {
-  const { value, error } = joischema.joiProductSchema.validate(req.body);
+  const { value, error } = joischema.joiproductSchema.validate(req.body);
   if (error) {
     return next(new customError(error.details[0].message, 400));
   }
@@ -64,7 +64,7 @@ const deleteProductfromBin = async (req, res, next) => {
 };
 // get all products
 const getAllProducts = async (req, res, next) => {
-  const products = await product.find({ isDeleted: false });
+  const products = await product.find();
   if (!products) return next(new customError("Products not found", 404));
   res.status(200).json({
     message: "products found successfully",
@@ -83,7 +83,7 @@ const getSingleProduct = async (req, res, next) => {
 
 //get product by category
 const getProductByCategory = async (req, res, next) => {
-  const products = await product.find({ type: req.params.type });
+  const products = await product.find({type: req.params.type });
   if (!products) return next(new customError("Products not found", 404));
   res.status(200).json({
     message: "products found successfully",
