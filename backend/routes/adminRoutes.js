@@ -40,6 +40,7 @@ routes
     tryCatch(adminUserController.blockUser)
   )
 
+  //just a func
   .delete(
     "/user-delete/:id",
     verifyToken,

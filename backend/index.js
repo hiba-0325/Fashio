@@ -32,7 +32,7 @@ app.all("*", (req, res) => {
 //db connection
 mongoose
   .connect(process.env.MONGOOSE_URL)
-  .then(() => console.log("connected to mongoose"))
+  .then(() => console.log("connected to database"))
   .catch((err) => console.error(err));
 app.use(manageError);
 const PORT = process.env.PORT || 5050;

@@ -12,7 +12,7 @@ routes
 
   .get("/product", tryCatch(userProductController.getAllProduct))
   .get("/product/:id", tryCatch(userProductController.getProductById))
-  .get("/product/:type", tryCatch(userProductController.getProductType))
+  .get("/product/category/:type", tryCatch(userProductController.getProductType))
 
   //cart ccontroller
 
