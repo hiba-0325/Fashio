@@ -1,0 +1,210 @@
+[
+  {
+    "name": "Men’s white shirt",
+    "type": "men",
+    "image": "https://i.pinimg.com/736x/50/36/44/503644ed7a00391e4ed96fe0505b47ff.jpg",
+    "qty": "10",
+    "description": "Comfortable shirt for summer.",
+    "brand": "caltix",
+    "rating": "4.6",
+    "reviews": 12,
+    "price": 1200,
+    "isDeleted": false
+  },
+  {
+    "name": "Women’s floral dress",
+    "type": "women",
+    "image": "https://i.pinimg.com/736x/93/80/94/9380944e0abf63bb6ba9f7c23775ef3a.jpg",
+    "qty": "15",
+    "description": "Elegant floral summer dress.",
+    "brand": "blossom",
+    "rating": "4.8",
+    "reviews": 18,
+    "price": 1800,
+    "isDeleted": false
+  },
+  {
+    "name": "Men’s black jacket",
+    "type": "men",
+    "image": "https://i.pinimg.com/736x/16/3f/9e/163f9e92f55a98036f55034477fda364.jpg",
+    "qty": "8",
+    "description": "Stylish winter jacket.",
+    "brand": "northpeak",
+    "rating": "4.7",
+    "reviews": 22,
+    "price": 3000,
+    "isDeleted": false
+  },
+  {
+    "name": "Women’s denim jeans",
+    "type": "women",
+    "image": "https://i.pinimg.com/736x/78/51/46/7851460f424f84f923ea540f4060d0c4.jpg",
+    "qty": "20",
+    "description": "Classic blue denim jeans.",
+    "brand": "denimart",
+    "rating": "4.5",
+    "reviews": 14,
+    "price": 1500,
+    "isDeleted": false
+  },
+
+  {
+    "name": "Men’s slim-fit blazer",
+    "type": "men",
+    "image": "https://i.pinimg.com/736x/e4/43/9d/e4439ded5c89cd171af459b6713a9e5a.jpg",
+    "qty": "7",
+    "description": "A stylish slim-fit blazer for formal occasions.",
+    "brand": "formalista",
+    "rating": "4.7",
+    "reviews": 18,
+    "price": 4500,
+    "isDeleted": false
+  },
+  {
+    "name": "Women’s cocktail dress",
+    "type": "women",
+    "image": "https://i.pinimg.com/736x/41/b8/b5/41b8b549084d6d27faf8d9d3f105f43f.jpg",
+    "qty": "5",
+    "description": "Elegant cocktail dress for evening parties.",
+    "brand": "evechic",
+    "rating": "4.8",
+    "reviews": 25,
+    "price": 3800,
+    "isDeleted": false
+  },
+  {
+    "name": "Men’s casual polo T-shirt",
+    "type": "men",
+    "image": "https://i.pinimg.com/736x/27/a5/dc/27a5dc4ca3fff747ffa9fda016808e33.jpg",
+    "qty": "15",
+    "description": "Comfortable polo T-shirt for everyday wear.",
+    "brand": "polowear",
+    "rating": "4.6",
+    "reviews": 20,
+    "price": 1200,
+    "isDeleted": false
+  },
+  {
+    "name": "Women’s cardigan sweater",
+    "type": "women",
+    "image": "https://i.pinimg.com/736x/db/1f/2d/db1f2d91b10cba93a7af8608cc8d93d4.jpg",
+    "qty": "12",
+    "description": "Cozy cardigan for winter.",
+    "brand": "cozyknit",
+    "rating": "4.6",
+    "reviews": 25,
+    "price": 2200,
+    "isDeleted": false
+  },
+
+  {
+    "name": "Women’s evening gown",
+    "type": "women",
+    "image": "https://i.pinimg.com/474x/61/35/a9/6135a996c0a960c2f17a334b5d8a12aa.jpg",
+    "qty": "4",
+    "description": "Stunning evening gown for formal events.",
+    "brand": "glamourwear",
+    "rating": "4.9",
+    "reviews": 40,
+    "price": 6000,
+    "isDeleted": false
+  },
+  {
+    "name": "Women’s floral maxi dress",
+    "type": "women",
+    "image": "https://i.pinimg.com/736x/6c/8d/27/6c8d2754caded4bb8ed54fa3b7387cad.jpg",
+    "qty": "7",
+    "description": "Comfortable and stylish floral maxi dress.",
+    "brand": "bloomwear",
+    "rating": "4.7",
+    "reviews": 18,
+    "price": 3000,
+    "isDeleted": false
+  },
+
+  {
+    "name": "Men’s formal suit",
+    "type": "men",
+    "image": "https://i.pinimg.com/736x/0d/45/04/0d4504d966a6c0be2d3a9b8c59454f5c.jpg",
+    "qty": "6",
+    "description": "Classic formal suit for special occasions.",
+    "brand": "gentfit",
+    "rating": "4.8",
+    "reviews": 32,
+    "price": 7500,
+    "isDeleted": false
+  },
+  {
+    "name": "Women’s office dress",
+    "type": "women",
+    "image": "https://i.pinimg.com/736x/b2/ed/e3/b2ede30f9d2499f4e15d2958f3211c32.jpg",
+    "qty": "10",
+    "description": "Elegant office wear dress.",
+    "brand": "officechic",
+    "rating": "4.6",
+    "reviews": 20,
+    "price": 2800,
+    "isDeleted": false
+  },
+  {
+    "name": "Men’s tuxedo",
+    "type": "men",
+    "image": "https://i.pinimg.com/736x/05/64/c5/0564c5ededd1c39b6dc3f61191fb4349.jpg",
+    "qty": "4",
+    "description": "Luxury tuxedo for weddings and formal events.",
+    "brand": "classyfit",
+    "rating": "4.9",
+    "reviews": 45,
+    "price": 12000,
+    "isDeleted": false
+  },
+  {
+    "name": "Women’s summer dress",
+    "type": "women",
+    "image": "https://i.pinimg.com/736x/c7/c2/9e/c7c29ed94543e14329e3ed605690bea0.jpg",
+    "qty": "12",
+    "description": "Lightweight dress perfect for summer days.",
+    "brand": "summerbreeze",
+    "rating": "4.5",
+    "reviews": 15,
+    "price": 1800,
+    "isDeleted": false
+  },
+  {
+    "name": "Men’s long sleeve shirt",
+    "type": "men",
+    "image": "https://i.pinimg.com/736x/b1/f1/d8/b1f1d8da44af8fdb2c0d2fac835943fb.jpg",
+    "qty": "8",
+    "description": "Comfortable and viking pirates style causual outing",
+    "brand": "ethnicman",
+    "rating": "4.7",
+    "reviews": 20,
+    "price": 2400,
+    "isDeleted": false
+  },
+  {
+    "name": "Women’s wrap dress",
+    "type": "women",
+    "image": "https://i.pinimg.com/736x/05/37/b3/0537b399ac766d9a33f609f813651d65.jpg",
+    "qty": "8",
+    "description": "Trendy wrap dress for casual outings.",
+    "brand": "trendwrap",
+    "rating": "4.6",
+    "reviews": 22,
+    "price": 2600,
+    "isDeleted": false
+  },
+  {
+    "name": "Men’s hoodie",
+    "type": "men",
+    "image": "",
+    "qty": "5",
+    "description": "comfortable cotten hoodie for casual outing .",
+    "brand": "hoodez",
+    "rating": "4.9",
+    "reviews": 35,
+    "price": 9500,
+    "isDeleted": false
+  }
+
+]
