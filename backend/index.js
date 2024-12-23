@@ -7,17 +7,26 @@ const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("../backend/routes/authRoutes");
 const adminRoutes= require("../backend/routes/adminRoutes")
 const connectCloudinary=require("./config/cloudinary")
+const cors = require("cors")
 const app = express();
 dotenv.config();
 //connect to cloudin
 
 connectCloudinary();
+
+//cors
+app.use(
+  cors({
+    origin:process.env.CLIENT_URL,
+    credentials:true,
+  })
+);
 //middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 //routes
-app.use("/user", userRoutes);
+app.use("/users", userRoutes);
 app.use("/auth", authRoutes);
 app.use("/admin",adminRoutes);
 //catch unhandled routes
