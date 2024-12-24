@@ -35,11 +35,12 @@ function UserContext({ children }) {
   }, [Cookies.get("currentUser")]); // Depend on the currentUser cookie
 
 
-  const registerUser = async (name, email, password) => {
+  const registerUser = async (name, email, password,number) => {
     const data = {
       name: name,
       email: email,
       password: password,
+      number:number,
     };
 
     setLoading(true);
@@ -57,7 +58,7 @@ function UserContext({ children }) {
     }
   };
 
-  const loginUser = async (email, password) => {
+  const loginUser = async (email, password ) => {
     try {
       await axios.post(
         "http://localhost:3000/auth/login",
