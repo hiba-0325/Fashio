@@ -36,7 +36,7 @@ function Footer() {
       </div>
       <div className="footer-copyright flex justify-center items-center gap-6 w-full mb-8 text-[#1a1a1a] text-lg">
         <hr className="w-[40%] border-none rounded-full h-2 bg-[#c7c7c7]" />
-        <p>&copy; {new Date().getFullYear()} fashio @ All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} fashio.com All rights reserved.</p>
       </div>
     </div>
   );
