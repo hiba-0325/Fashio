@@ -5,15 +5,16 @@ import axiosErrorManager from "../../util/axiosErrorManage.jsx";
 import { toast } from "react-toastify";
 
 function LoginCombo() {
-  const {loginUser} = useContext(userData) 
+  window.scrollTo(0, 0);
+  const { loginUser } = useContext(userData);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleFunc = async (e) => {
     e.preventDefault();
-    try{
+    try {
       await loginUser(email, password);
-    }catch(err){
-      toast.error(axiosErrorManager(err))
+    } catch (err) {
+      toast.error(axiosErrorManager(err));
     }
   };
   return (
