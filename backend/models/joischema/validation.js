@@ -4,6 +4,7 @@ const joiUserSchema = joi.object({
   name: joi.string(),
   number: joi.number().min(10).required(),
   email: joi.string().email().required(),
+  refreshToken: joi.string().optional(),
   password: joi
     .string()
     .pattern(/^(?=.*\d)(?=.*[A-Z])[A-Za-z\d]{8,}$/)
@@ -12,18 +13,19 @@ const joiUserSchema = joi.object({
       "string.pattern.base":
         "Password must have at least one capital letter, one number and must be at least 8 charecters long.",
     }),
-  confirmedpassword: joi
-    .string()
-    .valid(joi.ref("password"))
-    .required()
-    .messages({
-      "any.only": "Confirmed password must match password.",
-    }),
+  // confirmedpassword: joi
+  //   .string()
+  //   .valid(joi.ref("password"))
+  //   .required()
+  //   .messages({
+  //     "any.only": "Confirmed password must match password.",
+  //   }),
 });
 
 const joiUserLogin = joi.object({
   email: joi.string().email().required(),
   password: joi.string().required(),
+  refreshToken: joi.string().optional(),
 });
 
 const joiproductSchema = joi.object({

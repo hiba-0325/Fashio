@@ -8,11 +8,13 @@ const { verifyToken } = require("../middleware/auth");
 const routes = express.Router();
 
 routes
-  //user product controller
 
   .get("/product", tryCatch(userProductController.getAllProduct))
   .get("/product/:id", tryCatch(userProductController.getProductById))
-  .get("/product/category/:type", tryCatch(userProductController.getProductType))
+  .get(
+    "/products/category/:type",
+    tryCatch(userProductController.getProductType)
+  )
 
   //cart ccontroller
 
@@ -44,6 +46,11 @@ routes
     "/order/stripe/success/:sessionId",
     verifyToken,
     tryCatch(userOrderController.stripeSuccess)
+  )
+  .patch(
+    "/order/cancel/:orderId",
+    verifyToken,
+    tryCatch(userOrderController.cancelOneOrder)
   );
 
 module.exports = routes;

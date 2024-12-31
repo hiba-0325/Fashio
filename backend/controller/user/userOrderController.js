@@ -46,9 +46,18 @@ const orderCOD = async (req, res, next) => {
 
 //2. payment gateway (make order with stripe)
 const orderWithStripe = async (req, res, next) => {
-  const { products, address, totalAmount } = req.body;
-  if (!products || products.length === 0) {
-    return next(new customError("no product find", 400));
+  const { products, address, totalAmount, firstName, lastName, email, mobile } =
+    req.body;
+  if (
+    !products ||
+    !address ||
+    !totalAmount ||
+    !firstName ||
+    !lastName ||
+    !email ||
+    !mobile
+  ) {
+    return next(new customError("all field required", 400));
   }
   const productDetails = await Promise.all(
     products.map(async (item) => {
@@ -84,11 +93,15 @@ const orderWithStripe = async (req, res, next) => {
     payment_method_types: ["card"],
     line_items: lineItem,
     mode: "payment",
-    success_url: `http://localhost:3000/success/{CHECKOUT_SESSION_ID}`,
-    cancel_url: `http://localhost:3000/cancel`,
+    success_url: `http://localhost:5173/success/{CHECKOUT_SESSION_ID}`,
+    cancel_url: `http://localhost:5173/cancel`,
   });
   const newOrder = new orderSchema({
     userId: req.user.id,
+    firstName,
+    lastName,
+    email,
+    mobile,
     products,
     address,
     totalAmount: newTotal,
@@ -129,13 +142,9 @@ const getAllOrders = async (req, res) => {
     .populate("products.productId", "name price image")
     .sort({ createdAt: -1 });
   if (newOrder) {
-    res.status(200).json({
-      data: { order: newOrder },
-    });
+    res.status(200).json({ data: newOrder });
   } else {
-    res.status(200).json({
-      data: { order: [] },
-    });
+    res.status(200).json({ data: [] });
   }
 };
 

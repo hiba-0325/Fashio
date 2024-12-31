@@ -41,7 +41,7 @@ const updateUserCart = async (req, res, next) => {
     });
   } else {
     const productIndex = cart.products.findIndex(
-      (product) => product.productId.toString() === productId.toString()
+      (product) => product.productId.toString() === productId
     );
 
     if (productIndex > -1) {

@@ -7,9 +7,10 @@ const adminOrderController = require("../controller/admin/adminOrderController")
 const upload = require("../middleware/multer");
 
 const { verifyToken, verifyAdminToken } = require("../middleware/auth.js");
-const routes = express.Router();
+const router = express.Router();
 
-routes
+router
+
   //admin user routes
 
   .get(
@@ -27,25 +28,17 @@ routes
   )
 
   .get(
-    "/user-total",
+    "/total",
     verifyToken,
     verifyAdminToken,
     tryCatch(adminUserController.getTotalUsers)
   )
 
   .patch(
-    "/user-block/:id",
+    "/user/block/:id",
     verifyToken,
     verifyAdminToken,
     tryCatch(adminUserController.blockUser)
-  )
-
-  //just a func
-  .delete(
-    "/user-delete/:id",
-    verifyToken,
-    verifyAdminToken,
-    tryCatch(adminUserController.deleteUser)
   )
 
   //cart routes
@@ -161,4 +154,4 @@ routes
     tryCatch(adminOrderController.updatePaymentStatus)
   );
 
-module.exports = routes;
+module.exports = router;

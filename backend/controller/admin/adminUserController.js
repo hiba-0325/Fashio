@@ -34,19 +34,10 @@ const blockUser = async (req, res, next) => {
     .status(200)
     .json({ message: user.isBlocked ? "user blocked" : "user unblocked" });
 };
-//delete user
-const deleteUser = async (req, res, next) => {
-  const user = await User.findByIdAndDelete(req.params.id);
-  if (!user) {
-    return next(new customError("user not found", 404));
-  }
-  res.status(200).json({ message: "user deleted successfully" });
-};
 
 module.exports = {
   getAllUsers,
   getSingleUser,
-  deleteUser,
   getTotalUsers,
   blockUser,
 };

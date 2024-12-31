@@ -3,18 +3,19 @@ const joischema = require("../../models/joischema/validation");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const customError = require("../../utils/customError");
+const userSchema = require("../../models/schema/userSchema");
 
-const createToken = (id, isAdmin) => {
+const createToken = (id, isAdmin, expiresIn) => {
   return jwt.sign({ id, isAdmin }, process.env.JWT_TOKEN, {
-    expiresIn: "7d",
+    expiresIn,
   });
 };
 
 //create refresh token
 
-const createRefreshToken = (id, isAdmin) => {
+const createRefreshToken = (id, isAdmin, expiresIn) => {
   return jwt.sign({ id, isAdmin }, process.env.JWT_REFRESH_TOKEN, {
-    expiresIn: "14d",
+    expiresIn,
   });
 };
 
@@ -27,7 +28,7 @@ const userReg = async (req, res, next) => {
   if (error) {
     return next(new customError(error.details[0].message, 400));
   }
-  const { name, email, number, password, confirmedpassword } = value;
+  const { name, email, number, password } = value;
 
   //check if user already exist
 
@@ -38,9 +39,9 @@ const userReg = async (req, res, next) => {
   }
   //check password match
 
-  if (password !== confirmedpassword) {
-    return next(new customError("passwords do not match", 400));
-  }
+  // if (password !== confirmedpassword) {
+  //   return next(new customError("passwords do not match", 400));
+  // }
 
   //hashed and salt password
 
@@ -103,8 +104,8 @@ const userLogin = async (req, res, next) => {
   if (!isMatch) {
     return next(new customError("incorrect password", 401));
   }
-  const token = createToken(userData._id, userData.isAdmin);
-  const refreshToken = createRefreshToken(userData._id, userData.isAdmin);
+  const token = createToken(userData._id, userData.isAdmin, "1h");
+  const refreshToken = createRefreshToken(userData._id, userData.isAdmin, "1d");
 
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
@@ -113,11 +114,26 @@ const userLogin = async (req, res, next) => {
     maxAge: 7 * 24 * 60 * 1000,
   });
 
-  res.status(200).json({
-    message: "user logged in successfully",
+  const currentUser = {
+    id: userData._id,
+    name: userData.name,
+    email: userData.email,
     isAdmin: userData.isAdmin,
-    token,
+  };
+
+  res.cookie("currentUser", JSON.stringify(currentUser));
+
+  res.cookie("token", token, {
+    httpOnly: false,
+    secure: true,
+    sameSite: "none",
   });
+  // res.status(200).json({
+  //   message: "user logged in successfully",
+  //   isAdmin: userData.isAdmin,
+  //   token,
+  // });
+  res.json({ message: "user logged in successfully", token });
 };
 
 // admin login
@@ -148,20 +164,59 @@ const adminLogin = async (req, res, next) => {
     return next(customError("incorrect password", 401));
   }
 
-  const token = createToken(adminData._id, adminData.isAdmin);
-  const refreshToken = createRefreshToken(adminData._id, adminData.isAdmin);
+  const token = createToken(adminData._id, adminData.isAdmin, "1h");
+  const refreshToken = createRefreshToken(
+    adminData._id,
+    adminData.isAdmin,
+    "1d"
+  );
 
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    secure: false,
+    secure: true,
     samesite: "none",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
-  res.status(200).json({
-    message: "admin is logged successfully",
-    token,
+  const currentUser = {
+    id: adminData._id,
+    name: adminData.name,
+    email: adminData.email,
+    isAdmin: adminData.isAdmin,
+  };
+  //sending user details to client (for curr user)
+  res.cookie("currentUser", JSON.stringify(currentUser));
+
+  //sending token to cookie
+  res.cookie("token", token, {
+    httpOnly: false,
+    secure: true,
+    sameSite: "none",
   });
+
+  res.json({ message: "Admin successfully logged in", token });
+};
+
+const refreshingToken = async (req, res, next) => {
+  console.log(req.cookies);
+  if (!req.cookies) {
+    return next(new customError("No cookies found", 401));
+  }
+  const refreshToken = req.cookies.refreshToken;
+  if (!refreshToken) {
+    return next(new customError("No refresh token found", 401));
+  }
+
+  // Verifying the refresh token
+  const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_TOKEN);
+
+  const user = await userSchema.findById(decoded.id);
+  if (!user || user.refreshToken !== refreshToken) {
+    return next(new customError("Invalid refresh token", 401));
+  }
+  let accessToken = createToken(user._id, user.role, "1h");
+
+  res.status(200).json({ message: "Token refreshed", token: accessToken });
 };
 
 const userLogout = async (req, res, next) => {
@@ -170,10 +225,26 @@ const userLogout = async (req, res, next) => {
     secure: false,
     samesite: "none",
   });
+  res.clearCookie("token", {
+    httpOnly: false,
+    secure: true,
+    sameSite: "none",
+  });
+  res.clearCookie("currentUser", {
+    httpOnly: false,
+    secure: true,
+    sameSite: "none",
+  });
 
   res.status(200).json({
     message: "successfully logged out",
   });
 };
 
-module.exports = { userReg, userLogin, adminLogin, userLogout };
+module.exports = {
+  userReg,
+  userLogin,
+  adminLogin,
+  userLogout,
+  refreshingToken,
+};

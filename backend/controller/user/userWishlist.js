@@ -24,7 +24,6 @@ const getUserWishlist = async (req, res) => {
 
 const addToWishlist = async (req, res, next) => {
   const { productId } = req.body;
-
   if (!productId) {
     return next(new customError("Product ID is required", 400));
   }

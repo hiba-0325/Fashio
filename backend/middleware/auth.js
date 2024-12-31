@@ -20,11 +20,11 @@ const verifyToken = (req, res, next) => {
       }
 
       req.user = decoded; // Attach decoded token data (e.g., id, isAdmin) to `req.user`
-      next(); 
+      next();
     });
   } catch (error) {
     console.error("Token verification error:", error.message);
-    next(new customError("Failed to verify token", 500)); 
+    next(new customError("Failed to verify token", 500));
   }
 };
 

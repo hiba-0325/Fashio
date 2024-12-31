@@ -30,7 +30,10 @@ const orderSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
-
+    firstName:{type:String,required:true},
+    lastName:{type:String,required:true},
+    email:{type:String,required:true},
+    mobile:{type:String,required:true},
     address: {
       type: Object,
       required: true,
@@ -46,7 +49,6 @@ const orderSchema = new mongoose.Schema(
       default: "pending",
       enum: ["pending", "paid", "failed", "Cash on delivery"],
     },
-    
 
     // Shipping status of the order
     shippingStatus: {
