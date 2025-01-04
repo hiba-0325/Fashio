@@ -36,11 +36,12 @@ function Payment() {
     }
     setLoading(true);
     const products = cart.map((item) => ({
-      productID: item.productID._id,
+      productId: item.productId._id,
       quantity: item.quantity,
     }));
+    console.log(products, "paaaymeeentttt");
     const totalAmount = cart.reduce(
-      (acc, item) => acc + item.productID.price * item.quantity,
+      (acc, item) => acc + item.productId.price * item.quantity,
       0
     );
 
@@ -54,7 +55,10 @@ function Payment() {
       totalAmount,
     };
     try {
-      const api = paymentOption === "CARD" ? "user/orders/stripe/checkout" : "user/orders/cod";
+      const api =
+        paymentOption === "CARD"
+          ? "user/order/stripe/checkout"
+          : "user/order/cod";
       const res = await axiosInstance.post(api, orderedData);
       if (paymentOption === "CARD") {
         window.location.href = res.data.stripeUrl; // redirect to Stripe
