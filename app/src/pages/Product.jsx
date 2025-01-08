@@ -1,4 +1,4 @@
-import logo from "../Components/assets/shoe-navaf.svg";
+import logo from "../Components/assets/fahiologo.png";
 import Loading from "../Components/Loading/Loading";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { useContext, useEffect, useState } from "react";
@@ -9,22 +9,21 @@ import axiosErrorManager from "../util/axiosErrorManage";
 import axiosInstance from "../util/axiosInstance";
 
 function Product() {
+  window.scrollTo(0, 0);
   const { id } = useParams();
   const { currency } = useContext(ProductsData);
   const { currUser, addToCart, cart } = useContext(userData);
   const [product, setProduct] = useState([]);
   const [women, setWomen] = useState([]);
   const [men, setMen] = useState([]);
-  const navigate = useNavigate(); 
-  const productInCart = cart.some((item) => item.productID._id === id);
+  const navigate = useNavigate();
+  const productInCart = cart.some((item) => item.productId._id === id);
 
   useEffect(() => {
     const findProduct = async () => {
       try {
-        const { data } = await axiosInstance.get(
-          `user/product/${id}`
-        );
-        setProduct(data);
+        const { data } = await axiosInstance.get(`user/product/${id}`);
+        setProduct(data.data);
       } catch (err) {
         console.error(axiosErrorManager(err));
       }
@@ -35,9 +34,7 @@ function Product() {
   useEffect(() => {
     const menFiltered = async () => {
       try {
-        const { data } = await axiosInstance.get(
-          "user/products/category/men"
-        );
+        const { data } = await axiosInstance.get("user/products/category/men");
         setMen(data.data);
       } catch (error) {
         console.error(axiosErrorManager(error));
@@ -63,9 +60,9 @@ function Product() {
   const handleAddToCart = () => {
     if (!productInCart) {
       addToCart(id, 1);
-      navigate("/cart")
-    }else{
-      navigate("/cart")
+      navigate("/cart");
+    } else {
+      navigate("/cart");
     }
   };
 
@@ -97,7 +94,7 @@ function Product() {
             <div className="left-section md:w-[40%] flex flex-col items-center">
               <img
                 src={product.image}
-                className="w-[100%] max-w-[300px] mb-4"
+                className="w-[100%] max-w-[300px] mt-20 mb-4"
                 alt=""
               />
               <h4 className="text-[24px] text-center font-bold">
@@ -111,7 +108,7 @@ function Product() {
               </div>
             </div>
             <div className="right-section md:w-[50%] mt-4 md:mt-0 flex flex-col items-center justify-center">
-              <img src={logo} className="h-[200px] w-[40%] mt-[-20px]" alt="" />
+              <img src={logo} className="h-[200px] w-[50%] mt-[-20px]" alt="" />
               <p className="text-[50px] font-bold text-center text-sm md:text-base px-2 mt-[-20px]">
                 Brand: {product.brand}
               </p>
@@ -120,8 +117,8 @@ function Product() {
               </p>
               {currUser !== null ? (
                 <div onClick={() => handleAddToCart(id, 1)}>
-                  <button className="mt-8 w-[350px] h-[70px] rounded-md bg-[#BF3131] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#7D0A0A] focus:outline-none focus:ring-4 focus:ring-blue-300">
-                    { productInCart ? "Go to Cart" : "Add to Cart"}
+                  <button className="mt-8 w-[350px] h-[70px] rounded-md bg-[#32abdf] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#2c85b9] focus:outline-none focus:ring-4 focus:ring-blue-300">
+                    {productInCart ? "Go to Cart" : "Add to Cart"}
                   </button>
                 </div>
               ) : (
