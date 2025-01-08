@@ -17,7 +17,7 @@ function Shop() {
     const fetchProductsData = async () => {
       setLoading(true);
       try {
-        const { data } = await axiosInstance.get("/user/products");
+        const { data } = await axiosInstance.get("/user/product");
         setProducts(data.data);
       } catch (err) {
         toast.error(axiosErrorManager(err));
