@@ -3,7 +3,7 @@ const customError = require("../utils/customError");
 
 const verifyToken = (req, res, next) => {
   try {
-    const authHeader = req.headers.token; // Standardize header key
+    const authHeader = req.headers.authorization; // Standardize header key
     if (!authHeader) {
       return next(new customError("Authentication token missing", 401)); // Updated error message and status code
     }

@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 import { IoEyeSharp } from "react-icons/io5";
 import { FaEyeSlash } from "react-icons/fa";
 
-
 function SignupCombo() {
   const { registerUser, loading } = useContext(userData);
   const [formData, setFormData] = useState({
@@ -14,6 +13,7 @@ function SignupCombo() {
     email: "",
     password: "",
     cPassword: "",
+    number: 0,
   });
   const [showPassword, setShowPassword] = useState(false);
 
@@ -24,9 +24,9 @@ function SignupCombo() {
 
   const handlerEvent = async (e) => {
     e.preventDefault();
-    const { name, email, password, cPassword } = formData;
+    const { name, email, password, cPassword ,number } = formData;
     if (password === cPassword) {
-      registerUser(name, email, password);
+      registerUser(name, email, password,number);
     } else {
       toast.error("Password does not match");
     }
@@ -62,6 +62,16 @@ function SignupCombo() {
                   onChange={handleChange}
                   className="bg-gray-200 h-14 md:h-16 w-full ps-5 border-gray-500 outline-none text-[#5c5c5c] text-base md:text-lg"
                 />
+
+                <input
+                  type="number"
+                  name="number"
+                  required
+                  placeholder="Phone number"
+                  onChange={handleChange}
+                  className="bg-gray-200 h-14 md:h-16 w-full ps-5 border-gray-500 outline-none text-[#5c5c5c] text-base md:text-lg"
+                />
+
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
@@ -76,7 +86,11 @@ function SignupCombo() {
                     className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-[#7D0A0A]"
                     onClick={() => setShowPassword((prev) => !prev)}
                   >
-                    {showPassword ?  <FaEyeSlash size={23} />  : <IoEyeSharp size={23} /> }
+                    {showPassword ? (
+                      <FaEyeSlash size={23} />
+                    ) : (
+                      <IoEyeSharp size={23} />
+                    )}
                   </span>
                 </div>
                 <input

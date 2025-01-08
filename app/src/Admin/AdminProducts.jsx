@@ -21,8 +21,9 @@ function AdminProducts() {
   // did for the products resetting if deleted
   const fetchProducts = async () => {
     try {
-      const { data } = await axiosInstance.get("user/products");
-      setProducts(data.data);
+      const { data } = await axiosInstance.get("/admin/products");
+      const filteredData = data.data.filter((i) => i.isDeleted === false);
+      setProducts(filteredData);
     } catch (error) {
       console.error(axiosErrorManager(error));
     }

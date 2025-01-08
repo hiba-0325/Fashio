@@ -26,12 +26,13 @@ function AdminUserActionPage() {
     fetchUser();
   }, [ID]);
 
-  const blockUser = async (id) => {
+  const blockUser = async (ID) => {
     setLoading(true);
     try {
-      const res = await axiosInstance.patch(`/admin/user/block/${id}`);
+      const res = await axiosInstance.patch(`/admin/user/block/${ID}`);
       setUser(res.data.user);
       toast.success(res.data.message);
+      navigate("/admin");
     } catch (err) {
       toast.error(axiosErrorManager(err));
     } finally {
@@ -42,7 +43,7 @@ function AdminUserActionPage() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const { data } = await axiosInstance.get(`/admin/orders/user/${ID}`);
+        const { data } = await axiosInstance.get(`/admin/order/user/${ID}`);
         setOrders(data.data);
       } catch (err) {
         toast.error(axiosErrorManager(err));
@@ -54,7 +55,6 @@ function AdminUserActionPage() {
   const handlerForMain = () => {
     navigate("/admin");
   };
-
   return (
     user && (
       <div className="flex flex-col sm:flex-row justify-center h-screen overflow-hidden">
@@ -118,7 +118,7 @@ function AdminUserActionPage() {
                 <input
                   type="text"
                   className="ps-2 mb-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#BF3131] h-8 w-[90%]"
-                  value={user.role === "admin" ? "admin" : "user"}
+                  value={user.isAdmin === "admin" ? "admin" : "user"}
                   readOnly
                 />
               </div>
@@ -149,17 +149,29 @@ function AdminUserActionPage() {
                   <h3 className="text-lg font-semibold mt-4">Products:</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {order.products.map((product) => (
-                      <div key={product.productID._id} className="border p-4 rounded-lg">
-                        <h4 className="font-semibold">{product.productID.name}</h4>
-                        <p>Quantity: {product.productID.quantity}</p>
-                        <p>Price: ₹{product.productID.price}</p>
+                      <div
+                        key={product.productId._id}
+                        className="border p-4 rounded-lg"
+                      >
+                        <h4 className="font-semibold">
+                          {product.productId.name}
+                        </h4>
+                        <p>Quantity: {product.productId.quantity}</p>
+                        <p>Price: ₹{product.productId.price}</p>
                       </div>
                     ))}
                   </div>
                   <p className="font-semibold text-lg mt-4">
                     Total Amount: ₹{order.totalAmount}
                   </p>
-                    <button onClick={() => navigate(`/admin/order/${user._id}/${order._id}`)} className="bg-red-500 text-white px-6 py-2 mt-4 rounded-md hover:bg-red-600 transition duration-300">Update</button>
+                  <button
+                    onClick={() =>
+                      navigate(`/admin/order/${user._id}/${order._id}`)
+                    }
+                    className="bg-red-500 text-white px-6 py-2 mt-4 rounded-md hover:bg-red-600 transition duration-300"
+                  >
+                    Update
+                  </button>
                 </div>
               ))
             ) : (

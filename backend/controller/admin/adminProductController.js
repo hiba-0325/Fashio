@@ -1,6 +1,7 @@
 const product = require("../../models/schema/productSchema");
 const customError = require("../../utils/customError");
 const joischema = require("../../models/joischema/validation");
+const { default: mongoose } = require("mongoose");
 
 // create product
 const createProduct = async (req, res, next) => {
@@ -62,6 +63,23 @@ const deleteProductfromBin = async (req, res, next) => {
     message: "product deleted successfully",
   });
 };
+
+//restore
+const restoreProducts = async (req, res, next) => {
+  //checking id format valid or not
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return next(new customError("Invalid ID format", 400)); 
+}
+  //to access the deleted key
+  const restoredProduct = await product.findByIdAndUpdate(
+    req.params.id,
+    { $set: { isDeleted: false } },
+    { new: true }
+  );
+  if (!restoredProduct) return next(new customError("Product not found", 404));
+  res.status(200).json({
+    message: "Product restored successfully"});
+};
 // get all products
 const getAllProducts = async (req, res, next) => {
   const products = await product.find();
@@ -99,4 +117,5 @@ module.exports = {
   getAllProducts,
   getSingleProduct,
   getProductByCategory,
+  restoreProducts,
 };

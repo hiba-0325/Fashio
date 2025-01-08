@@ -30,10 +30,10 @@ const orderSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
-    firstName:{type:String,required:true},
-    lastName:{type:String,required:true},
-    email:{type:String,required:true},
-    mobile:{type:String,required:true},
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    email: { type: String, required: true },
+    mobile: { type: String, required: true },
     address: {
       type: Object,
       required: true,
@@ -47,7 +47,7 @@ const orderSchema = new mongoose.Schema(
     paymentStatus: {
       type: String,
       default: "pending",
-      enum: ["pending", "paid", "failed", "Cash on delivery"],
+      enum: ["pending", "paid", "cancelled", "Cash on delivery"],
     },
 
     // Shipping status of the order

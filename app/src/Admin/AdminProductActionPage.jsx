@@ -29,19 +29,20 @@ function AdminProductActionPage() {
   const fetchProducts = async () => {
     setLoading(true)
     try {
-      const res = await axiosInstance.get(`/admin/product/${id}`);
-      setProducts(res.data);
+      const res = await axiosInstance.get(`/admin/products/${id}`);
+    console.log(res.data)
+      setProducts(res.data.data);
       setValues({
-        id: res.data?._id || "",
-        name: res.data?.name || "",
-        type: res.data?.type || "",
-        price: res.data?.price || "",
-        qty: res.data?.qty || "",
+        id: res.data.data?._id || "",
+        name: res.data.data?.name || "",
+        type: res.data.data?.type || "",
+        price: res.data.data?.price || "",
+        qty: res.data.data?.qty || "",
         image: null,
-        description: res.data?.description || "",
-        brand: res.data?.brand || "",
-        rating: res.data?.rating || "",
-        reviews: res.data?.reviews || "",
+        description: res.data.data?.description || "",
+        brand: res.data.data?.brand || "",
+        rating: res.data.data?.rating || "",
+        reviews: res.data.data?.reviews || "",
       })
     } catch (error) {
       toast.error(axiosErrorManager(error));

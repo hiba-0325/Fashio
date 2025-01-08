@@ -106,6 +106,8 @@ const userLogin = async (req, res, next) => {
   }
   const token = createToken(userData._id, userData.isAdmin, "1h");
   const refreshToken = createRefreshToken(userData._id, userData.isAdmin, "1d");
+  userData.refreshToken = refreshToken;
+  await userData.save();
 
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
@@ -211,6 +213,7 @@ const refreshingToken = async (req, res, next) => {
   const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_TOKEN);
 
   const user = await userSchema.findById(decoded.id);
+  console.log(user)
   if (!user || user.refreshToken !== refreshToken) {
     return next(new customError("Invalid refresh token", 401));
   }

@@ -52,9 +52,9 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        const { data } = await axiosInstance.get("/admin/orders/total");
+        const { data } = await axiosInstance.get("/admin/order/total");
         setOrders(data.data);
-        const res = await axiosInstance.get("/admin/orders/stats");
+        const res = await axiosInstance.get("/admin/order/status");
         setTotalAmount(res.data.data.totalRevenue);
         console.log(res.data.data.totalRevenue)
         

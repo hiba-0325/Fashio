@@ -19,7 +19,7 @@ function UserContext({ children }) {
   const [wishlistLengthCheck, setWishlistLengthCheck] = useState(0);
   const navigate = useNavigate();
 
-  const isAdmin = currUser !== null && currUser.role === "admin" ? true : false;
+  const isAdmin = currUser !== null && currUser.isAdmin;
 
   useEffect(() => {
     const cookieUser = Cookies.get("currentUser");
@@ -34,13 +34,12 @@ function UserContext({ children }) {
     }
   }, [Cookies.get("currentUser")]); // Depend on the currentUser cookie
 
-
-  const registerUser = async (name, email, password,number) => {
+  const registerUser = async (name, email, password, number) => {
     const data = {
       name: name,
       email: email,
       password: password,
-      number:number,
+      number: number,
     };
 
     setLoading(true);
@@ -58,7 +57,7 @@ function UserContext({ children }) {
     }
   };
 
-  const loginUser = async (email, password ) => {
+  const loginUser = async (email, password) => {
     try {
       await axios.post(
         "http://localhost:3000/auth/login",
@@ -88,7 +87,7 @@ function UserContext({ children }) {
   const adminLogin = async (email, password) => {
     try {
       await axios.post(
-        "http://localhost:3000/admin/login",
+        "http://localhost:3000/auth/admin-login",
         { email, password },
         { withCredentials: true }
       );
@@ -105,7 +104,9 @@ function UserContext({ children }) {
     if (currUser) {
       try {
         const data = await axiosInstance.get(`user/wishlist`);
-        const fetchedWishlist = data.data?.products || [];
+        const fetchedWishlist = data.data?.data?.products || [];
+        console.log(fetchedWishlist.length, "wishlist");
+
         setWishlist(fetchedWishlist);
         setWishlistLengthCheck(fetchedWishlist.length); // Update length here
       } catch (error) {
@@ -113,7 +114,6 @@ function UserContext({ children }) {
       }
     }
   };
-  
 
   useEffect(() => {
     getUserWishList();
@@ -122,7 +122,7 @@ function UserContext({ children }) {
   const addToWishlist = async (id) => {
     try {
       await axiosInstance.post(`user/wishlist`, {
-        productID: id,
+        productId: id,
       });
       await getUserWishList();
       toast.success("Product added to wishlist");
@@ -134,7 +134,7 @@ function UserContext({ children }) {
   const removeFromWishlist = async (id) => {
     try {
       const res = await axiosInstance.delete(`user/wishlist`, {
-        data: { productID: id },
+        data: { productId: id },
       });
       await getUserWishList();
       toast.success(res.data.message);
@@ -148,7 +148,8 @@ function UserContext({ children }) {
   const getUserCart = async () => {
     if (currUser) {
       try {
-        const data = await axiosInstance.get(`/user/cart`);
+        const { data } = await axiosInstance.get(`/user/cart`);
+        console.log(data.data.products);
         setCart(data.data?.products);
         setCartLengthCheck(data.data?.products.length);
       } catch (error) {
@@ -164,7 +165,7 @@ function UserContext({ children }) {
   const addToCart = async (id, q) => {
     try {
       const res = await axiosInstance.post(`user/cart`, {
-        productID: id,
+        productId: id,
         quantity: q,
       });
       await getUserCart();
@@ -177,7 +178,7 @@ function UserContext({ children }) {
   const removeFromCart = async (id) => {
     try {
       const res = await axiosInstance.delete(`user/cart`, {
-        data: { productID: id },
+        data: { productId: id },
       });
       await getUserCart();
       toast.success(res.data.message);

@@ -166,25 +166,43 @@ const getOneOrder = async (req, res, next) => {
 };
 
 // Cancel an Order by ID
+
 const cancelOneOrder = async (req, res, next) => {
-  const cancelOrder = await orderSchema.findOneAndUpdate(
-    {
+  try {
+    const order = await orderSchema.findOne({
       _id: req.params.orderId,
       userId: req.user.id,
-    },
-    { $set: { shippingStatus: "cancelled" } },
-    { new: true }
-  );
-  if (!cancelOrder) {
-    return next(new customError("Order not found", 404));
+    });
+
+    if (!order) {
+      return next(new customError("Order not found", 404));
+    }
+
+    // will get an error on cancellation if the order is already paid
+    if (order.paymentStatus === "paid") {
+      return next(
+        new customError("Order cannot be canceled as it is already paid.", 400)
+      );
+    }
+    if (order.shippingStatus === "cancelled") {
+      return next(new customError("Order is already canceled.", 400));
+    }
+    // will update order shipping status to "Cancelled"
+    order.shippingStatus = "cancelled";
+    order.paymentStatus = "cancelled";
+    await order.save();
+    await order.populate("products.productId", "name price image");
+
+    res.status(200).json({
+      success: true,
+      message: "Order cancelled successfully.",
+      data: order,
+    });
+  } catch (error) {
+    next(error);
   }
-  if (cancelOrder.paymentStatus === "paid") {
-    return next(new customError("Order already paid", 400));
-  }
-  cancelOrder.shippingStatus = "cancelled";
-  cancelOrder.paymentStatus = "cancelled";
-  res.status(200).json({ message: "Order cancelled successfully" });
 };
+
 const publicKeySend = async (req, res) => {
   res.status(200).json({ stripePublicKey: process.env.STRIPE_PUBLIC_KEY });
 };

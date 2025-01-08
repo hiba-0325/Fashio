@@ -18,7 +18,7 @@ function AdminOrderStatus() {
     const fetchSingleOrder = async () => {
       try {
         const { data } = await axiosInstance.get(
-          `/admin/orders/${userID}/${orderID}`
+          `/admin/order/${userID}/${orderID}`
         );
         setOrder(data.data);
       } catch (err) {
@@ -31,7 +31,7 @@ function AdminOrderStatus() {
   const updateShippingStatus = async () => {
     try {
       const { data } = await axiosInstance.patch(
-        `/admin/orders/shipping/${orderID}`,
+        `/admin/order/shipping/${orderID}`,
         {
          status : shippingStatus,
         }
@@ -49,7 +49,7 @@ function AdminOrderStatus() {
   const updatePaymentStatus = async () => {
     try {
       const { data } = await axiosInstance.patch(
-        `/admin/orders/payment/${orderID}`,
+        `/admin/order/payment/${orderID}`,
         {
          status : paymentStatus,
         }

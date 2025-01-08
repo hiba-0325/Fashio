@@ -195,16 +195,28 @@
     "isDeleted": false
   },
   {
-    "name": "Men’s hoodie",
+    "name": "Men’s solid colored full sleeve",
     "type": "men",
-    "image": "",
+    "image": "https://i.pinimg.com/736x/d2/62/42/d26242a6b554b9a90d747228c2fc6af8.jpg",
     "qty": "5",
-    "description": "comfortable cotten hoodie for casual outing .",
-    "brand": "hoodez",
+    "description": "comfortable Colored Drop Shoulder Long Sleeve Shirt With Pocket Blue Casual Long Sleeve Corduroy  .",
+    "brand": "hoorez",
     "rating": "4.9",
     "reviews": 35,
-    "price": 9500,
+    "price": 1500,
     "isDeleted": false
   }
 
 ]
+{
+  "name": "Women’s fashion dress",
+  "type": "women",
+  "image": "",
+  "qty": "5",
+  "description": "women comfortable casual korean style  .",
+  "brand": "kstylez",
+  "rating": "4.9",
+  "reviews": 35,
+  "price": 1500,
+  "isDeleted": false
+}

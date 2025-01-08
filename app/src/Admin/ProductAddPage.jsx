@@ -32,7 +32,7 @@ function ProductAddPage() {
       formData.append("brand", formValue.brand);
       formData.append("description", formValue.description);
       formData.append("image", image);
-      const res = await axiosInstance.post("/admin/product", formData);
+      const res = await axiosInstance.post("/admin/product/create", formData);
       setLoading(false);
       if (res.status === 201) {
         toast.success(res.data.message);

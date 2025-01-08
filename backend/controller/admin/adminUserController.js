@@ -28,11 +28,32 @@ const blockUser = async (req, res, next) => {
   if (!user) {
     return next(new customError("user not found", 404));
   }
-  user.isBlocked = !user.isBlocked;
+  user.isBlocked = true;
   await user.save();
   res
     .status(200)
     .json({ message: user.isBlocked ? "user blocked" : "user unblocked" });
+};
+
+//unblock
+const unblockUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return next(new customError("User not found", 404));
+    }
+
+    if (!user.isBlocked) {
+      return res.status(400).json({ message: "User is already unblocked" });
+    }
+
+    user.isBlocked = false;
+    await user.save();
+
+    res.status(200).json({ message: "User successfully unblocked" });
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = {
@@ -40,4 +61,5 @@ module.exports = {
   getSingleUser,
   getTotalUsers,
   blockUser,
+  unblockUser,
 };

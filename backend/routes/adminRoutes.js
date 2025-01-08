@@ -41,6 +41,15 @@ router
     tryCatch(adminUserController.blockUser)
   )
 
+  //unblock
+  .patch(
+    "/user/unblock/:id",
+    verifyToken,
+    verifyAdminToken,
+    tryCatch(adminUserController.unblockUser)
+  )
+  
+
   //cart routes
 
   .get(
@@ -100,15 +109,17 @@ router
     "/product/bin/:id",
     verifyToken,
     verifyAdminToken,
-    tryCatch(adminProductController.deleteProduct)
+    tryCatch(adminProductController.deleteProductfromBin)
   )
 
-  .delete(
+  .patch(
     "/product/delete/:id",
     verifyToken,
     verifyAdminToken,
-    tryCatch(adminProductController.deleteProductfromBin)
+    tryCatch(adminProductController.deleteProduct)
   )
+  .patch("/product/restore/:id", verifyToken,
+    verifyAdminToken,tryCatch(adminProductController.restoreProducts))
 
   //order routes
 
