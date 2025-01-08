@@ -2,11 +2,13 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import axiosErrorManager from "./axiosErrorManage";
 import { toast } from "react-toastify";
+// import axiosErrorManager from "./axiosErrorManage";
+// import { toast } from "react-toastify";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:3000",
   // will ensures cookies are sent
-  withCredentials: true, 
+  withCredentials: true,
 });
 
 axiosInstance.interceptors.request.use(
@@ -24,14 +26,16 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+    const count = 1 
 
     if (
       error.response &&
       error.response.status === 401 &&
-      !originalRequest._retry
+      originalRequest._retry < count
     ) {
       //will mark request to avoid infinite loops
-      originalRequest._retry = true; 
+      originalRequest._retry = true;
+      originalRequest._retry = (originalRequest._retry || 0 )+1
       try {
         const response = await axios.post(
           "http://localhost:3000/auth/refreshToken",
