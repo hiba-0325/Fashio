@@ -6,8 +6,7 @@ import { toast } from "react-toastify";
 // import { toast } from "react-toastify";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000",
-  // will ensures cookies are sent
+  baseURL: `${import.meta.env.VITE_API_URL}`,
   withCredentials: true,
 });
 
@@ -38,7 +37,7 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = (originalRequest._retry || 0 )+1
       try {
         const response = await axios.post(
-          "http://localhost:3000/auth/refreshToken",
+          `${import.meta.env.VITE_API_URL}/auth/refreshToken`,
           {},
           {
             withCredentials: true,

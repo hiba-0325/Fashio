@@ -32,7 +32,7 @@ function Wishlist() {
           There is nothing in your wishlist.
         </p>
       ) : (
-        <div className="hidden sm:flex flex-col sm:flex-row items-center py-4 px-4 bg-[#333] text-white rounded-lg shadow-md mb-4">
+        <div className="hidden sm:flex flex-col sm:flex-row items-center py-4 px-4 bg-[#48a3dc] text-white rounded-lg shadow-md mb-4">
           <div className="flex justify-between items-center px-5 w-full">
             <p className="text-start ms-20">Product</p>
             <p className=" text-center">Title</p>

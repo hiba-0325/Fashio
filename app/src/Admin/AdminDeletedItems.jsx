@@ -9,7 +9,7 @@ function AdminDeletedItems() {
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
   const { loading, setLoading } = useContext(userData);
-  // fetching blocked users
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -30,7 +30,7 @@ function AdminDeletedItems() {
     setLoading(true);
     try {
       const res = await axiosInstance.patch(`/admin/user/unblock/${id}`);
-      // will remove the unblocked users by checking id
+      
       setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
       toast.success(res.data.message);
     } catch (err) {
@@ -40,7 +40,7 @@ function AdminDeletedItems() {
     }
   };
 
-  // fetching deleted products
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -58,7 +58,7 @@ function AdminDeletedItems() {
     setLoading(true);
     try {
       const res = await axiosInstance.patch(`/admin/product/restore/${id}`);
-      // will remove the unblocked users by checking id
+     
       setProducts((prevUsers) => prevUsers.filter((user) => user._id !== id));
       toast.success(res.data.message);
     } catch (err) {

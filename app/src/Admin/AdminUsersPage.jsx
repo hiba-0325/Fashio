@@ -32,7 +32,7 @@ function AdminUsersPage() {
         <div className="h-[100vh] overflow-scroll mt-1">
           <table className="min-w-full text-center table-auto">
             <thead>
-              <tr className="bg-[#BF3131] text-white">
+              <tr className="bg-[#3d98e7] text-white">
                 <th className="p-2 text-xs md:text-sm">ID</th>
                 <th className="p-2 text-xs md:text-sm">NAME</th>
                 <th className="p-2 text-xs md:text-sm">EMAIL</th>

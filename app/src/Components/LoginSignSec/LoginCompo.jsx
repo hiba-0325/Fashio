@@ -24,7 +24,7 @@ function LoginCombo() {
         <form action="" onSubmit={handleFunc}>
           <div className="login-cont w-[90%] max-w-[580px] h-auto bg-white m-auto px-6 py-10 md:px-10 md:py-14">
             <h1 className="pb-5 font-bold text-2xl md:text-4xl">Login</h1>
-            <hr className="border-t-4 border-b-2 border-l border-[#7D0A0A]" />
+            <hr className="border-t-4 border-b-2 border-l border-[#639cc2]" />
             <br />
             <div className="loginsignup-fields flex flex-col gap-6">
               <input
@@ -44,13 +44,13 @@ function LoginCombo() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <button className="w-full h-14 md:h-16 text-white bg-[#BF3131] hover:bg-[#7D0A0A] focus:ring-4 focus:ring-blue-300 mt-6 text-xl md:text-2xl font-medium">
+            <button className="w-full h-14 md:h-16 text-white bg-[#489bb7] hover:bg-[#3689ac] focus:ring-4 focus:ring-blue-300 mt-6 text-xl md:text-2xl font-medium">
               Continue
             </button>
             <p className="loginsignup-login mt-5 text-[#5c5c5c] text-base md:text-lg font-medium">
               {`Don't have an account?`}
               <NavLink to="/signup">
-                <button className="text-[#ff4141] font-semibold">
+                <button className="text-[#8041ff] font-semibold">
                   Sign up here
                 </button>
               </NavLink>

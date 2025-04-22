@@ -60,7 +60,7 @@ function AdminUserActionPage() {
       <div className="flex flex-col sm:flex-row justify-center h-screen overflow-hidden">
         <IoCloseOutline
           onClick={handlerForMain}
-          className="cursor-pointer bg-[#80808069] rounded-full hover:text-[#BA3131] position fixed left-4 top-2"
+          className="cursor-pointer bg-[#80808069] rounded-full hover:text-[#546da8] position fixed left-4 top-2"
           size={40}
         />
         {loading ? (

@@ -3,12 +3,12 @@ import axiosErrorManager from "../util/axiosErrorManage";
 import { useContext } from "react";
 import { RxCross1 } from "react-icons/rx";
 import { ProductsData } from "../context/ProductsCont";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import { userData } from "../context/UserContext";
 const Cart = () => {
   const { currency } = useContext(ProductsData);
   const { cart, removeFromCart, setLoading, setCart } = useContext(userData);
-  const navigate = useNavigate();
+  
 
   const updateCart = (productId, nQuantity) => {
     const updatedCart = cart.map((item) => {
@@ -54,7 +54,7 @@ const Cart = () => {
       {!cart && cart?.length === 0 ? (
         <p className="text-center text-lg ">Your cart is empty.</p>
       ) : (
-        <div className="hidden sm:flex flex-col sm:flex-row items-center py-4 px-4 bg-[#c95555] text-white rounded-lg shadow-md mb-4">
+        <div className="hidden sm:flex flex-col sm:flex-row items-center py-4 px-4 bg-[#479cd4] text-white rounded-lg shadow-md mb-4">
           <p className="flex-1 text-center w-24 object-cover rounded-md sm:mr-4 mb-2 sm:mb-0">
             Product
           </p>
@@ -92,7 +92,7 @@ const Cart = () => {
               </p>
               <div className="flex">
                 <button
-                  className="text-[30px] shadow-sm shadow-black bg-red-800 active:bg-[#800000] text-white w-[30%]"
+                  className="text-[30px] shadow-sm shadow-black bg-cyan-800 active:bg-[#6cabb9] text-white w-[30%]"
                   onClick={() =>
                     decreaseQuantity(item.productId._id, item.quantity)
                   }
@@ -144,20 +144,7 @@ const Cart = () => {
           </div>
         </div>
       )}
-      <div className="flex flex-col items-center justify-center bg-gray-100 rounded-lg p-6 shadow-lg">
-        <div className="text-red-600 text-2xl font-bold">
-          Your Wishlist is Empty
-        </div>
-        <p className="text-gray-600 text-lg mt-2">
-          Add your favorite items to your wishlist and find them here easily.
-        </p>
-        <button
-          onClick={() => navigate("/")}
-          className="mt-4 px-6 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700"
-        >
-          Browse Products
-        </button>
-      </div>
+      
     </div>
   );
 };
